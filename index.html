@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hector Ortiz - Professional Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: "HO";
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: logoShine 3s infinite;
+        }
+
+        @keyframes logoShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 12px 45px 12px 20px;
+            color: white;
+            font-size: 1em;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ff6b35;
+            width: 350px;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            color: #ff6b35;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+        }
+
+        .btn-outline:hover {
+            background: #ff6b35;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Hero Banner with Carousel */
+        .hero-banner {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            margin-top: 80px;
+            margin-bottom: 60px;
+        }
+
+        .carousel {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .slide-title {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .slide-subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .slide-description {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Carousel Navigation */
+        .carousel-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 3;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #ff6b35;
+            transform: scale(1.2);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1.5em;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(0,0,0,0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 30px;
+        }
+
+        .carousel-next {
+            right: 30px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0 40px 60px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 30px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            animation: slideInDown 1s ease-out;
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .header h1 {
+            font-size: 4.5em;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            animation: fadeInUp 1.2s ease-out 0.3s both;
+        }
+
+        .header .subtitle {
+            font-size: 1.8em;
+            color: #1a1a1a;
+            font-weight: 300;
+            animation: fadeInUp 1.2s ease-out 0.6s both;
+        }
+
+        /* Profile Grid */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        /* Left Column - Photo and Contact */
+        .left-column {
+            animation: slideInLeft 1s ease-out 0.8s both;
+        }
+
+        .photo-section {
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 50px rgba(142, 68, 173, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 70px rgba(142, 68, 173, 0.4);
+        }
+
+        .photo-placeholder {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ecf0f1, #bdc3c7);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 8px solid #ffffff;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-placeholder::before {
+            content: "👤";
+            font-size: 4.5em;
+            color: #8e44ad;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(231, 76, 60, 0.3);
+        }
+
+        .contact-info h3 {
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .contact-item .icon {
+            margin-right: 20px;
+            font-size: 1.4em;
+        }
+
+        /* Right Column - Bio and Skills */
+        .right-column {
+            animation: slideInRight 1s ease-out 1s both;
+        }
+
+        .bio-section {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 50px rgba(243, 156, 18, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .bio-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .bio-section h2 {
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            font-size: 2.8em;
+            text-align: center;
+        }
+
+        .bio-text {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .skills-section {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(155, 89, 182, 0.3);
+        }
+
+        .skills-section h2 {
+            color: #ffffff;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-item .skill-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .skill-item h4 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .skill-item p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1em;
+        }
+
+        /* Bottom Footer Navigation */
+        .bottom-nav {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 60px 0;
+            margin-top: 80px;
+        }
+
+        .bottom-nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 40px;
+        }
+
+        .nav-section {
+            text-align: center;
+        }
+
+        .nav-section h3 {
+            color: #ff6b35;
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 15px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+            transform: translateX(10px);
+        }
+
+        .nav-section.special {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-section.special h3 {
+            color: #f39c12;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 25px;
+            animation: fadeInUp 1s ease-out 1.2s both;
+            margin: 0 40px 40px;
+        }
+
+        .footer p {
+            color: #ecf0f1;
+            font-size: 1.2em;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .close:hover {
+            color: #ff6b35;
+        }
+
+        .modal h2 {
+            color: #ff6b35;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+
+        .modal .btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        /* Search Results */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            margin-top: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-result-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-result-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-title {
+            color: #ff6b35;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .search-result-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero-banner {
+                height: 500px;
+            }
+            
+            .slide-title {
+                font-size: 3em;
+            }
+
+            .search-input {
+                width: 250px;
+            }
+
+            .search-input:focus {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 0 20px 40px;
+            }
+            
+            .header h1 {
+                font-size: 3em;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-banner {
+                height: 400px;
+            }
+            
+            .slide-title {
+                font-size: 2.5em;
+            }
+            
+            .carousel-arrow {
+                padding: 10px 15px;
+                font-size: 1.2em;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0 20px;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .search-input:focus {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .bottom-nav-container {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+        }
+
+        /* Hover Effects */
+        .photo-section, .contact-info, .bio-section, .skills-section {
+            transition: all 0.3s ease;
+        }
+
+        .photo-section:hover, .contact-info:hover, .bio-section:hover, .skills-section:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                <span>Hector Ortiz</span>
+            </a>
+            
+            <div class="nav-right">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search for products, services...">
+                    <button class="search-btn">🔍</button>
+                    <div class="search-results" id="searchResults">
+                        <!-- Search results will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="openModal('loginModal')">Log In</button>
+                    <button class="btn btn-primary" onclick="openModal('signupModal')">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner with Carousel -->
+    <div class="hero-banner">
+        <div class="carousel">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="slide-content">
+                    <h2 class="slide-title">Welcome to My Portfolio</h2>
+                    <p class="slide-subtitle">Technology Enthusiast & Creative Problem Solver</p>
+                    <p class="slide-description">Passionate about innovation and creating impactful solutions through technology</p>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="carousel-slide" style="background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="slide-content">
+                    <h2 class="slide-title">Full-Stack Development</h2>
+                    <p class="slide-subtitle">Modern Web Applications & Mobile Solutions</p>
+                    <p class="slide-description">Building scalable applications with cutting-edge technologies and best practices</p>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="carousel-slide" style="background-image: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="slide-content">
+                    <h2 class="slide-title">Innovation & Growth</h2>
+                    <p class="slide-subtitle">Always Learning, Always Evolving</p>
+                    <p class="slide-description">Committed to continuous learning and staying ahead of technology trends</p>
+                </div>
+            </div>
+            
+            <!-- Carousel Navigation -->
+            <button class="carousel-arrow carousel-prev">‹</button>
+            <button class="carousel-arrow carousel-next">›</button>
+            
+            <div class="carousel-nav">
+                <div class="carousel-dot active" data-slide="0"></div>
+                <div class="carousel-dot" data-slide="1"></div>
+                <div class="carousel-dot" data-slide="2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Header Section -->
+            <header class="header">
+                <h1>Hector Ortiz</h1>
+                <p class="subtitle">Technology Enthusiast & Problem Solver</p>
+            </header>
+
+            <!-- Profile Grid -->
+            <div class="profile-grid">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <!-- Photo Section -->
+                    <div class="photo-section">
+                        <div class="photo-placeholder"></div>
+                        <h3>Profile Photo</h3>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <h3>Contact Info</h3>
+                        <div class="contact-item">
+                            <span class="icon">📧</span>
+                            <span>hector@example.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">📱</span>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">📍</span>
+                            <span>San Francisco, CA</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">💼</span>
+                            <span>LinkedIn Profile</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="right-column">
+                    <!-- Bio Section -->
+                    <div class="bio-section">
+                        <h2>About Me</h2>
+                        <p class="bio-text">
+                            I have a deep passion for learning and am always eager to dive into new technologies, whether it's experimenting with the latest frameworks or understanding how things work under the hood. My curiosity drives me to constantly expand my knowledge and stay up-to-date in the ever-evolving world of technology. I enjoy finding creative solutions to challenges and thrive on the excitement of solving complex problems. When I'm not coding or working on projects, you can find me reading about emerging tech trends, hiking in nature, or spending quality time with friends and family.
+                        </p>
+                    </div>
+
+                    <!-- Skills Section -->
+                    <div class="skills-section">
+                        <h2>Skills & Expertise</h2>
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <span class="skill-icon">💻</span>
+                                <h4>Programming</h4>
+                                <p>JavaScript, Python, Java</p>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-icon">🌐</span>
+                                <h4>Web Development</h4>
+                                <p>React, Node.js, HTML/CSS</p>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-icon">📊</span>
+                                <h4>Data Analysis</h4>
+                                <p>SQL, Pandas, Visualization</p>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-icon">☁️</span>
+                                <h4>Cloud & DevOps</h4>
+                                <p>AWS, Docker, CI/CD</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Footer -->
+    <div class="bottom-nav">
+        <div class="bottom-nav-container">
+            <div class="nav-section">
+                <h3>About Us</h3>
+                <ul class="nav-links">
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Mission & Vision</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Values</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Contact Us</h3>
+                <ul class="nav-links">
+                    <li><a href="#">Get in Touch</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Partnership</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Help</h3>
+                <ul class="nav-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section special">
+                <h3>We Are Hiring!</h3>
+                <ul class="nav-links">
+                    <li><a href="#">Open Positions</a></li>
+                    <li><a href="#">Benefits</a></li>
+                    <li><a href="#">Culture</a></li>
+                    <li><a href="#">Apply Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 Hector Ortiz. All rights reserved. | Built with passion and creativity</p>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Log In</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+            <h2>Create Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showSlide(index));
+        });
+
+        // Auto-advance carousel
+        setInterval(nextSlide, 5000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Form submissions
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Here you would typically send this data to your backend
+            console.log('Login attempt:', { email, password });
+            alert('Login functionality would be implemented here!');
+            closeModal('loginModal');
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Here you would typically send this data to your backend
+            console.log('Signup attempt:', { name, email, password });
+            alert('Account created successfully! (Demo only)');
+            closeModal('signupModal');
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchResults = document.getElementById('searchResults');
+
+        // Sample search data (in a real app, this would come from a database)
+        const searchData = [
+            { title: 'Web Development Services', desc: 'Professional web development and design solutions' },
+            { title: 'Mobile App Development', desc: 'iOS and Android app development services' },
+            { title: 'Cloud Solutions', desc: 'AWS, Azure, and Google Cloud consulting' },
+            { title: 'Data Analysis', desc: 'Business intelligence and data visualization' },
+            { title: 'UI/UX Design', desc: 'User interface and experience design' },
+            { title: 'Consulting Services', desc: 'Technology strategy and consulting' }
+        ];
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            const filteredResults = searchData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.desc.toLowerCase().includes(query)
+            );
+
+            if (filteredResults.length > 0) {
+                searchResults.innerHTML = filteredResults.map(item => `
+                    <div class="search-result-item">
+                        <div class="search-result-title">${item.title}</div>
+                        <div class="search-result-desc">${item.desc}</div>
+                    </div>
+                `).join('');
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.innerHTML = '<div class="search-result-item"><div class="search-result-desc">No results found</div></div>';
+                searchResults.style.display = 'block';
+            }
+        });
+
+        // Hide search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Search result click handler
+        searchResults.addEventListener('click', function(e) {
+            if (e.target.closest('.search-result-item')) {
+                const title = e.target.closest('.search-result-item').querySelector('.search-result-title').textContent;
+                alert(`You selected: ${title}\n\nThis would navigate to the actual page in a real application.`);
+                searchResults.style.display = 'none';
+                searchInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
