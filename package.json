@@ -1,0 +1,39 @@
+{
+  "name": "hector-portfolio",
+  "version": "1.0.0",
+  "description": "Professional portfolio website with comprehensive testing and CI/CD",
+  "main": "index.html",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install",
+    "test:codegen": "playwright codegen",
+    "lint": "eslint . --ext .ts,.js",
+    "format": "prettier --write .",
+    "build": "echo 'No build step required for static HTML'",
+    "deploy": "echo 'Deployment handled by GitHub Pages'"
+  },
+  "keywords": [
+    "portfolio",
+    "website",
+    "testing",
+    "playwright",
+    "ci-cd",
+    "automation"
+  ],
+  "author": "Hector Ortiz",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
