@@ -25,6 +25,44 @@
             padding: 0;
         }
 
+        /* Skip Navigation Links */
+        .skip-links {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            z-index: 1001;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #ff6b35;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Screen Reader Only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         /* Top Navigation Bar */
         .top-nav {
             position: fixed;
@@ -848,6 +886,21 @@
             }
         }
 
+        /* Focus Indicators */
+        .btn:focus,
+        .search-input:focus,
+        .carousel-arrow:focus,
+        .carousel-dot:focus,
+        .close:focus {
+            outline: 3px solid #ff6b35;
+            outline-offset: 2px;
+        }
+
+        .logo:focus {
+            outline: 3px solid #ff6b35;
+            outline-offset: 2px;
+        }
+
         /* Hover Effects */
         .photo-section, .contact-info, .bio-section, .skills-section {
             transition: all 0.3s ease;
@@ -859,8 +912,15 @@
     </style>
 </head>
 <body>
+    <!-- Skip Navigation Links -->
+    <div class="skip-links">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#navigation" class="skip-link">Skip to navigation</a>
+        <a href="#footer" class="skip-link">Skip to footer</a>
+    </div>
+
     <!-- Top Navigation Bar -->
-    <nav class="top-nav">
+    <nav class="top-nav" id="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <a href="#" class="logo">
                 <div class="logo-icon"></div>
@@ -869,24 +929,25 @@
             
             <div class="nav-right">
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search for products, services...">
-                    <button class="search-btn">🔍</button>
-                    <div class="search-results" id="searchResults">
+                    <label for="search-input" class="sr-only">Search for products and services</label>
+                    <input type="text" class="search-input" id="search-input" placeholder="Search for products, services..." aria-label="Search for products and services" aria-describedby="search-results">
+                    <button class="search-btn" aria-label="Search" type="button">🔍</button>
+                    <div class="search-results" id="search-results" role="listbox" aria-label="Search results" aria-expanded="false">
                         <!-- Search results will be populated here -->
                     </div>
                 </div>
                 
-                <div class="auth-buttons">
-                    <button class="btn btn-outline" onclick="openModal('loginModal')">Log In</button>
-                    <button class="btn btn-primary" onclick="openModal('signupModal')">Sign Up</button>
+                <div class="auth-buttons" role="group" aria-label="Authentication options">
+                    <button class="btn btn-outline" onclick="openModal('loginModal')" aria-label="Open login form">Log In</button>
+                    <button class="btn btn-primary" onclick="openModal('signupModal')" aria-label="Open sign up form">Sign Up</button>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Banner with Carousel -->
-    <div class="hero-banner">
-        <div class="carousel">
+    <div class="hero-banner" role="banner" aria-label="Hero banner with rotating content">
+        <div class="carousel" role="region" aria-label="Content carousel" aria-live="polite">
             <!-- Slide 1 -->
             <div class="carousel-slide active" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                 <div class="slide-content">
@@ -915,19 +976,19 @@
             </div>
             
             <!-- Carousel Navigation -->
-            <button class="carousel-arrow carousel-prev">‹</button>
-            <button class="carousel-arrow carousel-next">›</button>
+            <button class="carousel-arrow carousel-prev" aria-label="Previous slide" aria-controls="carousel">‹</button>
+            <button class="carousel-arrow carousel-next" aria-label="Next slide" aria-controls="carousel">›</button>
             
-            <div class="carousel-nav">
-                <div class="carousel-dot active" data-slide="0"></div>
-                <div class="carousel-dot" data-slide="1"></div>
-                <div class="carousel-dot" data-slide="2"></div>
+            <div class="carousel-nav" role="tablist" aria-label="Carousel slides">
+                <div class="carousel-dot active" data-slide="0" role="tab" aria-selected="true" aria-label="Slide 1 of 3"></div>
+                <div class="carousel-dot" data-slide="1" role="tab" aria-selected="false" aria-label="Slide 2 of 3"></div>
+                <div class="carousel-dot" data-slide="2" role="tab" aria-selected="false" aria-label="Slide 3 of 3"></div>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="main-content">
+        <main class="main-content" id="main-content" role="main" aria-label="Main content">
             <!-- Header Section -->
             <header class="header">
                 <h1>Hector Ortiz</h1>
@@ -1053,16 +1114,17 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" id="footer" role="contentinfo" aria-label="Site footer">
         <p>© 2024 Hector Ortiz. All rights reserved. | Built with passion and creativity</p>
     </footer>
 
     <!-- Login Modal -->
-    <div id="loginModal" class="modal">
+    <div id="loginModal" class="modal" role="dialog" aria-labelledby="login-title" aria-describedby="login-description" aria-modal="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('loginModal')">&times;</span>
-            <h2>Log In</h2>
-            <form id="loginForm">
+            <span class="close" onclick="closeModal('loginModal')" aria-label="Close login form">&times;</span>
+            <h2 id="login-title">Log In</h2>
+            <p id="login-description" class="sr-only">Login form with email and password fields</p>
+            <form id="loginForm" role="form" aria-labelledby="login-title">
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
                     <input type="email" id="loginEmail" required>
@@ -1077,11 +1139,12 @@
     </div>
 
     <!-- Sign Up Modal -->
-    <div id="signupModal" class="modal">
+    <div id="signupModal" class="modal" role="dialog" aria-labelledby="signup-title" aria-describedby="signup-description" aria-modal="true">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('signupModal')">&times;</span>
-            <h2>Create Account</h2>
-            <form id="signupForm">
+            <span class="close" onclick="closeModal('signupModal')" aria-label="Close sign up form">&times;</span>
+            <h2 id="signup-title">Create Account</h2>
+            <p id="signup-description" class="sr-only">Sign up form with name, email, and password fields</p>
+            <form id="signupForm" role="form" aria-labelledby="signup-title">
                 <div class="form-group">
                     <label for="signupName">Full Name</label>
                     <input type="text" id="signupName" required>
@@ -1148,11 +1211,59 @@
 
         // Modal functionality
         function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'block';
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+            
+            // Focus management for accessibility
+            const firstInput = modal.querySelector('input');
+            if (firstInput) {
+                firstInput.focus();
+            }
+            
+            // Trap focus in modal
+            trapFocus(modal);
         }
 
         function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+            
+            // Return focus to the element that opened the modal
+            if (document.activeElement && document.activeElement.classList.contains('btn')) {
+                document.activeElement.focus();
+            }
+        }
+
+        // Focus trap for modals
+        function trapFocus(modal) {
+            const focusableElements = modal.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+            
+            // Handle tab key
+            modal.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstElement) {
+                            e.preventDefault();
+                            lastElement.focus();
+                        }
+                    } else {
+                        if (document.activeElement === lastElement) {
+                            e.preventDefault();
+                            firstElement.focus();
+                        }
+                    }
+                }
+                
+                // Escape key closes modal
+                if (e.key === 'Escape') {
+                    closeModal(modal.id);
+                }
+            });
         }
 
         // Close modal when clicking outside
@@ -1247,6 +1358,40 @@
                 alert(`You selected: ${title}\n\nThis would navigate to the actual page in a real application.`);
                 searchResults.style.display = 'none';
                 searchInput.value = '';
+                
+                // Update ARIA attributes
+                searchResults.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Update search results ARIA attributes
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                searchResults.setAttribute('aria-expanded', 'false');
+                return;
+            }
+
+            const filteredResults = searchData.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.desc.toLowerCase().includes(query)
+            );
+
+            if (filteredResults.length > 0) {
+                searchResults.innerHTML = filteredResults.map((item, index) => `
+                    <div class="search-result-item" role="option" aria-selected="false" id="result-${index}">
+                        <div class="search-result-title">${item.title}</div>
+                        <div class="search-result-desc">${item.desc}</div>
+                    </div>
+                `).join('');
+                searchResults.style.display = 'block';
+                searchResults.setAttribute('aria-expanded', 'true');
+            } else {
+                searchResults.innerHTML = '<div class="search-result-item" role="option"><div class="search-result-desc">No results found</div></div>';
+                searchResults.style.display = 'block';
+                searchResults.setAttribute('aria-expanded', 'true');
             }
         });
     </script>
