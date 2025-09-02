@@ -224,6 +224,102 @@
             box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
         }
 
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+
+        /* User Menu Styles */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .user-name {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .user-dropdown {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 400px;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .notification-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+        }
+
+        .notification-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            margin-left: 15px;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .notification-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         /* Hero Banner with Carousel */
         .hero-banner {
             position: relative;
@@ -712,6 +808,14 @@
             border-color: #ff6b35;
         }
 
+        .form-help {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
         .modal .btn {
             width: 100%;
             margin-top: 20px;
@@ -941,6 +1045,18 @@
                     <button class="btn btn-outline" onclick="openModal('loginModal')" aria-label="Open login form">Log In</button>
                     <button class="btn btn-primary" onclick="openModal('signupModal')" aria-label="Open sign up form">Sign Up</button>
                 </div>
+                
+                <!-- User Menu (Hidden by default) -->
+                <div class="user-menu" style="display: none;">
+                    <div class="user-info">
+                        <div class="user-avatar">U</div>
+                        <span class="user-name">User</span>
+                    </div>
+                    <div class="user-dropdown">
+                        <button class="btn btn-outline btn-sm" onclick="openProfileModal()">Profile</button>
+                        <button class="btn btn-outline btn-sm" onclick="authSystem.logout()">Logout</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -1151,11 +1267,16 @@
                 </div>
                 <div class="form-group">
                     <label for="signupEmail">Email</label>
-                    <input type="email" id="signupEmail" required>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupUsername">Username</label>
+                    <input type="text" id="signupUsername" name="username" required>
                 </div>
                 <div class="form-group">
                     <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" required>
+                    <input type="password" id="signupPassword" name="password" required>
+                    <small class="form-help">Must be at least 8 characters with uppercase, lowercase, and number</small>
                 </div>
                 <div class="form-group">
                     <label for="signupConfirmPassword">Confirm Password</label>
@@ -1166,6 +1287,53 @@
         </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal" role="dialog" aria-labelledby="profile-title" aria-describedby="profile-description" aria-modal="true">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('profileModal')" aria-label="Close profile form">&times;</span>
+            <h2 id="profile-title">User Profile</h2>
+            <p id="profile-description" class="sr-only">Profile management form</p>
+            <form id="profileForm" role="form" aria-labelledby="profile-title">
+                <div class="form-group">
+                    <label for="profileName">Full Name</label>
+                    <input type="text" id="profileName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="profileBio">Bio</label>
+                    <textarea id="profileBio" name="bio" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="profileLocation">Location</label>
+                    <input type="text" id="profileLocation" name="location">
+                </div>
+                <div class="form-group">
+                    <label for="profileSkills">Skills (comma-separated)</label>
+                    <input type="text" id="profileSkills" name="skills" placeholder="JavaScript, HTML, CSS">
+                </div>
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+            
+            <hr style="margin: 30px 0;">
+            
+            <h3>Change Password</h3>
+            <form id="passwordForm" role="form">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                    <small class="form-help">Must be at least 8 characters with uppercase, lowercase, and number</small>
+                </div>
+                <button type="submit" class="btn btn-outline">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include Authentication System -->
+    <script src="js/auth.js"></script>
+    
     <script>
         // Carousel functionality
         let currentSlide = 0;
@@ -1274,34 +1442,165 @@
         }
 
         // Form submissions
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            // Here you would typically send this data to your backend
-            console.log('Login attempt:', { email, password });
-            alert('Login functionality would be implemented here!');
-            closeModal('loginModal');
-        });
-
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'error');
                 return;
             }
             
-            // Here you would typically send this data to your backend
-            console.log('Signup attempt:', { name, email, password });
-            alert('Account created successfully! (Demo only)');
-            closeModal('signupModal');
+            try {
+                const result = await authSystem.login(email, password);
+                
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                    closeModal('loginModal');
+                    
+                    // Clear form
+                    document.getElementById('loginForm').reset();
+                    
+                    // Update UI
+                    authSystem.updateAuthUI();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification('An error occurred during login', 'error');
+                console.error('Login error:', error);
+            }
         });
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                fullName: document.getElementById('signupName').value,
+                email: document.getElementById('signupEmail').value,
+                username: document.getElementById('signupUsername').value,
+                password: document.getElementById('signupPassword').value,
+                confirmPassword: document.getElementById('signupConfirmPassword').value
+            };
+            
+            try {
+                const result = await authSystem.register(formData);
+                
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                    closeModal('signupModal');
+                    
+                    // Clear form
+                    document.getElementById('signupForm').reset();
+                    
+                    // Update UI
+                    authSystem.updateAuthUI();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification('An error occurred during registration', 'error');
+                console.error('Registration error:', error);
+            }
+        });
+
+        // Profile form handler
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const profileData = {
+                fullName: document.getElementById('profileName').value,
+                bio: document.getElementById('profileBio').value,
+                location: document.getElementById('profileLocation').value,
+                skills: document.getElementById('profileSkills').value.split(',').map(s => s.trim()).filter(s => s)
+            };
+            
+            try {
+                const result = authSystem.updateProfile(profileData);
+                
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                    closeModal('profileModal');
+                    
+                    // Update UI
+                    authSystem.updateAuthUI();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification('An error occurred while updating profile', 'error');
+                console.error('Profile update error:', error);
+            }
+        });
+
+        // Password change form handler
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            
+            try {
+                const result = authSystem.changePassword(currentPassword, newPassword);
+                
+                if (result.success) {
+                    showNotification(result.message, 'success');
+                    document.getElementById('passwordForm').reset();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            } catch (error) {
+                showNotification('An error occurred while changing password', 'error');
+                console.error('Password change error:', error);
+            }
+        });
+
+        // Load profile data when profile modal opens
+        function loadProfileData() {
+            if (authSystem.isUserAuthenticated() && authSystem.getCurrentUser()) {
+                const user = authSystem.getCurrentUser();
+                
+                document.getElementById('profileName').value = user.fullName || '';
+                document.getElementById('profileBio').value = user.profile.bio || '';
+                document.getElementById('profileLocation').value = user.profile.location || '';
+                document.getElementById('profileSkills').value = user.profile.skills ? user.profile.skills.join(', ') : '';
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(n => n.remove());
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+                </div>
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Profile modal open handler
+        function openProfileModal() {
+            openModal('profileModal');
+            loadProfileData();
+        }
 
         // Search functionality
         const searchInput = document.querySelector('.search-input');
