@@ -1,3 +1,5 @@
+<img width="1131" height="595" alt="Screenshot 2026-06-01 at 9 30 10 a m" src="https://github.com/user-attachments/assets/c1827116-c754-4c69-b271-45620412875b" />
+<img width="1131" height="595" alt="Screenshot 2026-06-01 at 9 30 10 a m" src="https://github.com/user-attachments/assets/0774ca3b-b2af-42d8-8cf5-bef4ebdfba3e" />
 # Hector Ortiz - Professional Portfolio Website
 
 A modern, responsive portfolio website built with HTML, CSS, and JavaScript featuring:
